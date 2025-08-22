@@ -21,3 +21,5 @@ Resources:
       Policies:
         - S3WritePolicy:
             BucketName: forexapiresults
+        - S3ReadPolicy:                    
+            BucketName: forexapiresults    
