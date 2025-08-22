@@ -1,0 +1,23 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: Forex API Lambda function
+
+Resources:
+  ForexLambdaFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: forex-lambda
+      Handler: lambda_function.lambda_handler        # Your handler file and function
+      Runtime: python3.12                            # Adjust runtime as required
+      CodeUri: .
+      MemorySize: 128
+      Timeout: 60
+      Environment:
+        Variables:
+          API_ACCESS_KEY: 250e38c67827a85e88787362e5921127          # Use your actual key in deployment
+          BUCKET_NAME: forexapiresults
+          BUCKET_PREFIX: forex-Api-Results/
+          CURRENCY_LIST: AUD,EUR
+      Policies:
+        - S3WritePolicy:
+            BucketName: forexapiresults
