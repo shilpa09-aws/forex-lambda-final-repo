@@ -1,7 +1,3 @@
-from dotenv import load_dotenv
-load_dotenv()  # loads environment variables from env variables of os.env
-
-
 import os
 import json
 import csv
