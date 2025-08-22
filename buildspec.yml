@@ -14,6 +14,7 @@ phases:
   post_build:
     commands:
       - sam package -t .aws-sam/build/template.yaml --s3-bucket $S3_ARTIFACT_BUCKET --output-template-file packaged.yaml
+
 artifacts:
-files:
-  - packaged.yaml
+  files:
+    - packaged.yaml
