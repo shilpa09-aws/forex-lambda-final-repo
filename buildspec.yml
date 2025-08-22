@@ -1,0 +1,19 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      python: 3.12
+    commands:
+      - pip install --upgrade pip
+      - pip install -r requirements.txt
+      - pip install aws-sam-cli
+  build:
+    commands:
+      - sam build -t sam.yaml
+  post_build:
+    commands:
+      - sam package -t .aws-sam/build/template.yaml --s3-bucket $S3_ARTIFACT_BUCKET --output-template-file packaged.yaml
+artifacts:
+files:
+  - packaged.yaml
