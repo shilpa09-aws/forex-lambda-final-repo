@@ -22,10 +22,11 @@ def get_secret(secret_name):
     try:
         client = boto3.client('secretsmanager')
         response = client.get_secret_value(SecretId=secret_name)
-        return response['SecretString']
+        return response['SecretString'].strip()  # ← ADD .strip() HERE
     except ClientError as e:
         logger.error(f"Error retrieving secret from Secrets Manager: {e}")
         raise e
+
 
 def lambda_handler(event, context):
     logger.info("Lambda execution started.")
