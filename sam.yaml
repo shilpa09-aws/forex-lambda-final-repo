@@ -14,12 +14,18 @@ Resources:
       Timeout: 60
       Environment:
         Variables:
-          API_ACCESS_KEY: 250e38c67827a85e88787362e5921127
           BUCKET_NAME: forexapiresults
           BUCKET_PREFIX: forex-Api-Results/
           CURRENCY_LIST: AUD,EUR
+          SECRET_NAME: forex-api-key  # Only reference, not the actual key
       Policies:
         - S3WritePolicy:
             BucketName: forexapiresults
-        - S3ReadPolicy:                    
-            BucketName: forexapiresults    
+        - S3ReadPolicy:
+            BucketName: forexapiresults
+        - Version: "2012-10-17"
+          Statement:
+            - Effect: Allow
+              Action:
+                - secretsmanager:GetSecretValue
+              Resource: !Sub "arn:aws:secretsmanager:${AWS::Region}:${AWS::AccountId}:secret:forex-api-key-*"
