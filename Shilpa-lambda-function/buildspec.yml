@@ -13,7 +13,6 @@ phases:
       - pip install -r requirements.txt
       - pip install aws-sam-cli
       - sam --version
- 
       # Fetch full git history
       - echo "Fetching full git history..."
       - git fetch --all
