@@ -17,7 +17,7 @@ Resources:
           BUCKET_NAME: forexapiresults
           BUCKET_PREFIX: forex-Api-Results/
           CURRENCY_LIST: AUD,EUR
-          SECRET_NAME: forex-api-key  # Only reference, not the actual key
+          SECRET_NAME: forex-api-key
       Policies:
         - S3WritePolicy:
             BucketName: forexapiresults
@@ -29,3 +29,4 @@ Resources:
               Action:
                 - secretsmanager:GetSecretValue
               Resource: !Sub "arn:aws:secretsmanager:${AWS::Region}:${AWS::AccountId}:secret:forex-api-key-*"
+    DeletionPolicy: Retain
