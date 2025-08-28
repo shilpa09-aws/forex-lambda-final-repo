@@ -30,7 +30,7 @@ phases:
       - echo "Packaging SAM application..."
       - sam package -t .aws-sam/build/template.yaml --s3-bucket $S3_ARTIFACT_BUCKET --output-template-file packaged.yaml
       - echo "Deploying SAM application..."
-      - sam deploy --template-file packaged.yaml --stack-name ForexApiStack --capabilities CAPABILITY_IAM --no-confirm-changeset --no-fail-on-empty-changeset
+      - sam deploy --template-file packaged.yaml --stack-name ForexApiStack-New --capabilities CAPABILITY_IAM --no-confirm-changeset --no-fail-on-empty-changeset
 
 artifacts:
   files:
