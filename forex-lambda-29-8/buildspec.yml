@@ -11,7 +11,7 @@ phases:
     commands:
       - echo "Installing dependencies..."
       - pip install --upgrade pip
-      - pip install -r requirements.txt
+      - pip install -r forex-lambda-29-8/requirements.txt
       - pip install aws-sam-cli
       - sam --version
   
