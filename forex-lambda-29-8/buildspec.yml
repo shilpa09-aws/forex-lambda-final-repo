@@ -18,7 +18,7 @@ phases:
   pre_build:
     commands:
       - echo "Validating SAM template..."
-      - sam validate -t sam.yaml
+      - sam validate -t forex-lambda-29-8/sam.yaml
   
   build:
     commands:
