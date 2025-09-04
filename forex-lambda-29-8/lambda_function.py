@@ -88,9 +88,14 @@ def lambda_handler(event, context):
     new_rows = [[pair[:3], pair[3:], timestamp_str, str(rate)] for pair, rate in quotes.items()]
     
     # Prepare file name and key
-    filename = f"forex_data_{aest_dt.strftime('%Y_%m')}.csv"
-    key = f"{prefix}{filename}" if prefix else filename
+    year = aest_dt.strftime('%Y')
+    month = aest_dt.strftime('%m')
+    filename = "forex_data.csv"
+    partition_path = f"year={year}/month={month}/"
+    key = f"{prefix}{partition_path}{filename}" if prefix else f"{partition_path}{filename}"
+   
     s3 = boto3.client('s3')
+
     
     # Attempt to load existing data from S3
     try:
