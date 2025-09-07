@@ -1,0 +1,25 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      python: 3.9
+    commands:
+      - pip install aws-sam-cli
+
+  pre_build:
+    commands:
+      - echo "Preparing SAM build"
+      - sam build
+
+  build:
+    commands:
+      - echo "Deploying SAM application"
+      - sam deploy --no-confirm-changeset --no-fail-on-empty-changeset \
+          --stack-name athena-table-lambda-stack \
+          --capabilities CAPABILITY_IAM \
+          --region us-east-1
+
+artifacts:
+  files:
+    - template.yaml

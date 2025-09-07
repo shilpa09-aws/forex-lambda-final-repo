@@ -1,0 +1,44 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: Lambda to manage Athena table creation from S3 CSV
+
+Globals:
+  Function:
+    Timeout: 300
+    Runtime: python3.9
+    MemorySize: 256
+    Tracing: Active
+
+Resources:
+  AthenaTableManagerFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: Forex-Rates-Athena-Table
+      Handler: lambda_function.lambda_handler
+      CodeUri: .
+      Environment:
+        Variables:
+          ATHENA_DATABASE: forex_data_db
+          ATHENA_TABLE_NAME: forex_data
+          ATHENA_VIEW_NAME: forex_rates_view
+          S3_INPUT_LOCATION: s3://forexapiresults/forex-Api-Results/
+          S3_OUTPUT_LOCATION: s3://shilpa-athenaqueryresults/queryresults/
+          WORKGROUP: primary
+      Policies:
+        - AWSLambdaBasicExecutionRole
+        - Version: '2012-10-17'
+          Statement:
+            - Effect: Allow
+              Action:
+                - athena:StartQueryExecution
+                - athena:GetQueryExecution
+                - athena:GetQueryResults
+                - athena:GetWorkGroup
+                - s3:GetObject
+                - s3:ListBucket
+              Resource: "*"
+
+Outputs:
+  AthenaLambdaFunction:
+    Description: "Athena Lambda Function ARN"
+    Value: !GetAtt AthenaTableManagerFunction.Arn
