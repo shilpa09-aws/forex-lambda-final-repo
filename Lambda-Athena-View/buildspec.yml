@@ -10,7 +10,7 @@ phases:
   pre_build:
     commands:
       - echo "Preparing SAM build"
-      - sam build
+      - sam build -t Lambda-Athena-View/template.yaml
 
   build:
     commands:
