@@ -15,10 +15,10 @@ phases:
   build:
     commands:
       - echo "Deploying SAM application"
-      - sam deploy --no-confirm-changeset --no-fail-on-empty-changeset \
-          --stack-name athena-table-lambda-stack \
-          --capabilities CAPABILITY_IAM \
-          --region us-east-1
+      - sam package -t .aws-sam/build/template.yaml --s3-bucket $S3_ARTIFACT_BUCKET --output-template-file template.yaml
+      - echo "Deploying SAM application..."
+      - sam deploy --template-file template.yaml --stack-name athena-table-lambda-stack --capabilities CAPABILITY_IAM --no-confirm-changeset --no-fail-on-empty-changeset
+
 
 artifacts:
   files:
