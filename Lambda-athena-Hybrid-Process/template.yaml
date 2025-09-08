@@ -12,8 +12,8 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: AthenaPartitionRepairFunction
-      Handler: app.lambda_handler
-      CodeUri: lambda/
+      CodeUri: .
+      Handler: lambda_function.lambda_handler
       MemorySize: 256
       Environment:
         Variables:
