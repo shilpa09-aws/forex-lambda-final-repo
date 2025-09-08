@@ -1,0 +1,33 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: Lambda for Athena MSCK REPAIR TABLE
+
+Globals:
+  Function:
+    Timeout: 60
+    Runtime: python3.11
+
+Resources:
+  AthenaPartitionRepairFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: AthenaPartitionRepairFunction
+      Handler: app.lambda_handler
+      CodeUri: lambda/
+      MemorySize: 256
+      Environment:
+        Variables:
+          ATHENA_DATABASE: "forex_data_db_new"
+          ATHENA_TABLE: "forex_api_results"
+          S3_OUTPUT: "s3://shilpa-athenaqueryresults/query-results/"
+          WORKGROUP: "primary"
+      Policies:
+        - Statement:
+            - Effect: Allow
+              Action:
+                - athena:StartQueryExecution
+                - athena:GetQueryExecution
+                - s3:ListBucket
+                - s3:GetObject
+                - s3:PutObject
+              Resource: "*"

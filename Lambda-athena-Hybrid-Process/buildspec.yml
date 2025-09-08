@@ -1,0 +1,24 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      python: 3.11
+    commands:
+      - pip install aws-sam-cli
+  pre_build:
+    commands:
+      - echo "Building SAM application"
+      - sam build -t Lambda-athena-Hybrid-Process/template.yaml
+  build:
+    commands:
+      - echo "Packaging SAM application"
+      - sam package -t .aws-sam/build/packaged.yaml --s3-bucket $S3_ARTIFACT_BUCKET --output-template-file packaged.yaml
+  post_build:
+    commands:
+      - echo "Deploying SAM application"
+      - sam deploy --template-file packaged.yaml --stack-name athena-partition-lambda-stack --capabilities CAPABILITY_IAM --region us-east-1 --no-confirm-changeset --no-fail-on-empty-changeset
+
+artifacts:
+  files:
+    - packaged.yaml
