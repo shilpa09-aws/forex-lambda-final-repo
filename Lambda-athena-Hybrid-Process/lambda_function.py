@@ -15,7 +15,7 @@ athena = boto3.client("athena", region_name="us-east-1")
 ATHENA_DATABASE = os.getenv('ATHENA_DATABASE', 'forex_data_db_new')
 SOURCE_TABLE = os.getenv('SOURCE_TABLE', 'forex_api_results')
 VIEW_NAME = os.getenv('VIEW_NAME', 'forex_rates_view')
-S3_OUTPUT_LOCATION = os.getenv('S3_OUTPUT_LOCATION')  # e.g., s3://your-athena-query-results/
+S3_OUTPUT_LOCATION = os.getenv('S3_OUTPUT')  # e.g., s3://your-athena-query-results/
 WORKGROUP = os.getenv('WORKGROUP', 'primary')
 
 def run_athena_query(query):
